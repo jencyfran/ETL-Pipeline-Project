@@ -3,17 +3,12 @@ from faker import Faker
 import random
 import string
 from google.cloud import storage
-
-# Specify number of employees to generate
 num_employees = 100
 
 # Create Faker instance
 fake = Faker()
-
-# Define the character set for the password
 password_characters = string.ascii_letters + string.digits + 'm'
 
-# Generate employee data and save it to a CSV file
 with open('employee_data.csv', mode='w', newline='') as file:
     fieldnames = ['first_name', 'last_name', 'job_title', 'department', 'email', 'address', 'phone_number', 'salary', 'password']
     writer = csv.DictWriter(file, fieldnames=fieldnames)
@@ -42,10 +37,8 @@ def upload_to_gcs(bucket_name, source_file_name, destination_blob_name):
 
     print(f'File {source_file_name} uploaded to {destination_blob_name} in {bucket_name}.')
 
-# Set your GCS bucket name and destination file name
 bucket_name = 'bkt-employee-data'
 source_file_name = 'employee_data.csv'
 destination_blob_name = 'employee_data.csv'
 
-# Upload the CSV file to GCS
 upload_to_gcs(bucket_name, source_file_name, destination_blob_name)
